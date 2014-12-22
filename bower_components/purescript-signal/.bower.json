@@ -1,0 +1,24 @@
+{
+  "name": "purescript-signal",
+  "version": "2.1.0",
+  "dependencies": {
+    "purescript-dom": "~0.1.1",
+    "purescript-timers": "0.0.8",
+    "purescript-refs": "~0.1.1"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "purescript-test-unit": "~1.1.4"
+  },
+  "homepage": "https://github.com/bodil/purescript-signal",
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.0",
+    "commit": "b61c636cbb932b2cc5214aa7774850b80696a077"
+  },
+  "_source": "git://github.com/bodil/purescript-signal.git",
+  "_target": "~2.1.0",
+  "_originalSource": "purescript-signal",
+  "_direct": true
+}

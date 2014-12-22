@@ -29,9 +29,12 @@
     "gulp-purescript": "^0.1.2",
     "gulp-rename": "^1.2.0",
     "gulp-util": "^3.0.1",
+    "lodash": "^2.4.1",
     "mocha": "^2.0.1",
+    "run-sequence": "^1.0.2",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
+    "underscore.string": "^2.4.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.2.1"
   }

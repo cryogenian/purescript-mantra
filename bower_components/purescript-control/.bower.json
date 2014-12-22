@@ -1,0 +1,30 @@
+{
+  "name": "purescript-control",
+  "homepage": "https://github.com/purescript/purescript-control",
+  "description": "Monad and Applicative utility functions",
+  "keywords": [
+    "purescript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "tests",
+    "tmp",
+    "bower.json",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "version": "0.2.1",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.1",
+    "commit": "fe8fd04d78aa983026f0f0efa9ec068a7039ad95"
+  },
+  "_source": "git://github.com/purescript/purescript-control.git",
+  "_target": "~0.2.0",
+  "_originalSource": "purescript-control"
+}
