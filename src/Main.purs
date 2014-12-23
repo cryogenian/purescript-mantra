@@ -41,10 +41,11 @@ newtype Component s e = Component {
   set :: s -> Eff (reactive :: Reactive|e) Unit,
   get :: Eff (reactive :: Reactive|e) s,
   modify :: (s -> s) -> Eff (reactive :: Reactive|e) Unit,
-  render :: s ->Eff (reactive :: Reactive|e) Unit,
-  signal :: Signal Event
+  render :: s ->Eff (reactive :: Reactive|e) Unit
   }
 
+
+data MantraEvent = Silence | MouseEvent | KeyboardEvent
 
 defineComponent :: forall s e.
                    (s -> Eff (reactive :: Reactive|e) Unit) -> 
@@ -57,8 +58,7 @@ defineComponent renderFunc =
           set: writeRVar rState,
           get: readRVar rState,
           modify: modifyRVar rState,
-          render: renderFunc,
-          signal: (every 1230) ~> \_ -> nothing
+          render: renderFunc
           }
         comp = Component cfg
     subscribe rState $ \state -> cfg.render state
@@ -80,10 +80,6 @@ main = do
   c <- comp2 121
   case c of
     Component cfg -> do
-      runSignal $ cfg.signal ~> \_ -> do
-        trace "signaled"
-        return unit
-        
       runSignal $ (every 1000) ~> \_ -> do
         cfg.modify (\num -> num + 1)
         return unit
