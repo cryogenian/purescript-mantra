@@ -1,42 +1,18 @@
 module Main where
 
 import Control.Monad.Eff
-
 import Control.Reactive
+import Data.Foldable
+
+
 import Signal
 import Signal.Time
 
-import qualified Data.StrMap as M
-
-
-foreign import log """
-function log(a) {
-  console.log(a);
-  return a;
-}
-""" :: forall a. a -> a
-
-
-foreign import trace """
-function trace(a) {
-  return function() {
-    console.log(a);
-    return a;
-  };
-}
-""" :: forall a e. a -> Eff e a
-
+import Utils
 
 foreign import data Event :: *
 
-foreign import nothing """
-var nothing = null;
-""" :: Event
-
-foreign import data Om :: !
-foreign import data Mani :: !
-
-newtype Component s e = Component {
+newtype Componen s e = Componen {
   state :: RVar s,
   set :: s -> Eff (reactive :: Reactive|e) Unit,
   get :: Eff (reactive :: Reactive|e) s,
@@ -45,43 +21,84 @@ newtype Component s e = Component {
   }
 
 
-data MantraEvent = Silence | MouseEvent | KeyboardEvent
+newtype Component input output = 
+  Component {
+    input :: RVar input,
+    output :: RVar output
+    }
 
-defineComponent :: forall s e.
-                   (s -> Eff (reactive :: Reactive|e) Unit) -> 
-                   (s -> Eff (reactive :: Reactive|e) (Component s e))
-defineComponent renderFunc =
-  \state -> do 
-    rState <- newRVar state
-    let cfg = {
-          state: rState,
-          set: writeRVar rState,
-          get: readRVar rState,
-          modify: modifyRVar rState,
-          render: renderFunc
-          }
-        comp = Component cfg
-    subscribe rState $ \state -> cfg.render state
-    return comp
+mkComponent :: forall inp out e.
+               inp -> out -> Eff (reactive :: Reactive|e) (Component inp out)
+mkComponent input output = do
+  inp <- newRVar input
+  out <- newRVar output
+  return $ Component{
+    input: inp,
+    output: out
+    }
+  
 
-
-    
-rf :: forall e. Number -> Eff e Unit
-rf state = do
-  trace "!!!!"
-  trace state 
-  trace "!!!!"
+set :: forall inp out e.
+       inp -> 
+       Component inp out ->
+       Eff (reactive :: Reactive|e) Unit
+set state (Component comp) = do 
+  writeRVar comp.input state
   return unit
 
-comp2 = defineComponent rf 
+update :: forall inp out e.
+          (inp -> inp) ->
+          Component inp out ->
+          Eff (reactive :: Reactive|e) Unit 
+update mutator (Component comp) = do 
+  modifyRVar comp.input mutator
 
-main :: forall e. Eff (reactive :: Reactive, mantra :: Om |e) Unit
+
+sub :: forall inp out e.
+       (out -> Eff (reactive :: Reactive|e) Unit) -> 
+       Component inp out -> 
+       Eff (reactive :: Reactive|e) Subscription
+sub handler (Component comp) = do 
+  subscribe comp.output handler
+       
+init :: forall inp out e.
+        (inp -> Eff (reactive :: Reactive|e) Unit) -> 
+        Component inp out ->
+        Eff (reactive :: Reactive|e) (Component inp out)
+init handler component@(Component comp) = do
+  subscribe comp.input handler
+  return component
+
+
+defineComponent :: forall inp out e.
+                   inp ->
+                   out ->
+                   (inp -> Eff (reactive :: Reactive|e) Unit) -> 
+                   Eff (reactive :: Reactive|e) (Component inp out) 
+defineComponent input output initFn = 
+  mkComponent input output >>= init initFn
+
+
+renderTst :: forall e. Number -> Eff e Unit
+renderTst = whisper
+
+renderP :: forall e. [Number] -> Eff e Unit
+renderP nums = do
+  for_ nums renderTst
+    
+
+parent = defineComponent [0] 0 $ \input ->
+  renderP input
+
+
+mkTest = defineComponent 0 0 $ \input -> do
+  whisper "foo"
+  whisper input
+  
 main = do
-  c <- comp2 121
-  case c of
-    Component cfg -> do
-      runSignal $ (every 1000) ~> \_ -> do
-        cfg.modify (\num -> num + 1)
-        return unit
-      
-      return unit
+  test <- parent
+  whisper test
+  runSignal $ (every 1000) ~> \_ -> update (\(n:ns) -> (n+1):n:ns) test
+  
+  
+
