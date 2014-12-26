@@ -22,3 +22,15 @@ function trace(a) {
 whisper a = do
   trace a
   return unit
+
+
+foreign import windowize """
+function windowize(name) {
+  return function(a) {
+    return function() {
+      window[name] = a;
+      return;
+    };
+  };
+}
+""" :: forall a e. String -> a -> Eff e Unit

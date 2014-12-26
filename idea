@@ -6,3 +6,32 @@
 и children. 
 
 Возможно все это склеить в один spec
+
+
+как хотелось бы это все задавать 
+
+
+component  = defineComponent output $ \input output -> 
+  bla bla bla 
+
+component1  = defineComponent output $ \input output -> 
+  bla bla bla 
+
+component2  = defineComponent output $ \input output -> 
+  bla 
+  component1 input.foo output.foo
+  component input.bar output.bar
+  bla bla        
+
+main = 
+  comp <- component2
+  renderTo comp document 
+
+щас есть 
+
+component = defineComponent output $ \input -> 
+  bla 
+
+parent = defineComponent output $ \input -> 
+  render $ component input.foo
+  render $ component input.bar
