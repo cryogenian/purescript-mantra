@@ -15,6 +15,7 @@
 :m bower_components/purescript-either/src/Data/Either.purs
 :m bower_components/purescript-foldable-traversable/src/Data/Foldable.purs
 :m bower_components/purescript-foldable-traversable/src/Data/Traversable.purs
+:m bower_components/purescript-foreign/src/Data/Foreign.purs
 :m bower_components/purescript-maps/src/Data/Map.purs
 :m bower_components/purescript-maps/src/Data/StrMap.purs
 :m bower_components/purescript-maybe/src/Data/Maybe.purs
@@ -28,6 +29,13 @@
 :m bower_components/purescript-arrays/src/Data/Array/ST.purs
 :m bower_components/purescript-arrays/src/Data/Array/Unsafe.purs
 :m bower_components/purescript-either/src/Data/Either/Nested.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/Class.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/Index.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/Keys.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/Null.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/NullOrUndefined.purs
+:m bower_components/purescript-foreign/src/Data/Foreign/Undefined.purs
+:m bower_components/purescript-jquery/src/Control/Monad/JQuery.purs
 :m bower_components/purescript-maps/src/Data/StrMap/ST.purs
 :m bower_components/purescript-maps/src/Data/StrMap/Unsafe.purs
 :m bower_components/purescript-maybe/src/Data/Maybe/Unsafe.purs
@@ -47,3 +55,4 @@
 :m bower_components/purescript-refs/src/Control/Monad/Eff/Ref/Unsafe.purs
 :m src/Main.purs
 :m src/Utils.purs
+:m src/Signal/Extension.purs

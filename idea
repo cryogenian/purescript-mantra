@@ -35,3 +35,109 @@ component = defineComponent output $ \input ->
 parent = defineComponent output $ \input -> 
   render $ component input.foo
   render $ component input.bar
+
+
+
+
+
+{-
+что-то вроде
+
+Определяем начальное состояние
+defaultState = {
+  children = [1, 2, 3],
+  title = "Trololo"
+}
+
+
+Определяем функцию отображения
+render state = template $ do
+  div ! me := "me" ! "foo" := "bar" ! "bar" := "baz" $$ do
+    input ! "bar" := "baz" ! me := "input"
+    a ! "href" := "trololo" ! me := "href"
+
+    subcomponent ! me := "sub" $$
+      text "ohlol"
+    text state.text
+    text state.input
+
+Обработчики
+meClicked = \state -> state{text = "clicked"}
+
+inputChanged = \state -> state{input = "input"}
+
+subInputChanged = \state -> state{input = "input sub"}
+
+Определяем компонент
+myComponent = comp $ {
+  render = render,
+  default = defaultState,
+  handlers = [meClicked, inputChanged]
+}
+
+
+В ходе определения компонента в него передается уникальный
+идентификатор, который пишется в datatset, кроме того, для
+каждого из элементов, на котором указано @me@ проставится
+дополнительная метка в тот же dataset.
+
+По полученным меткам строятся функции фильтры, которые сливаются
+в одну. (для каждого вида событий сливаются фильтры, для разных
+событий мержатся сигналы).
+
+После этого определяется сигнал состояния компонента.
+Как foldp от входящего сигнала на начальном состоянии.
+
+
+
+
+main = do
+  runSignal $ render document myComponent Nothing []
+  runSignal $ targetClicked ~>
+              is "input" of myComponent ~>
+              yell "Input clicked"
+  runSignal $ targetClicked ~>
+              is "change" of "sub" of myComponent ~>
+              yell "sub changed"
+
+Функция render берет signal состояния и привязывает его
+к функции отображения
+
+comp ~> render document
+
+так-то компонент принимает дополнительные параметры вроде
+отмены значения по умолчанию и потомков.
+
+Функции is и of просто маленький dsl для фильтрования
+элементов, в сущности они просто накладывают предикаты
+на dataset. Таким образом
+
+is "change" -> \el -> if el.dataset.me == "change"
+
+of "sub" -> \el -> if el.dataset.owner == "sub"
+
+of myComponent -> \el -> el.dataset.owner == myComponent.me
+
+(Ну не совсем так конечно :)
+
+
+
+Итого:
+
+1) Всеобщие потоки событий
+2) Фильтры на события по компонентам возвращают или мутатор или айди
+3) Компоненты явно указывают реакции на отфильтрованные потоки
+4) Полученные отфильтрованные потоки есть сигнальные функции
+5) Которые мержатся и привязываются к состоянию по умолчанию
+6) Полученный сигнал состояния передается в рендер
+
+7) Для работы фильтров у каждого компонента появляется поле @me@
+8) Эти поля записываются в dataset элемента DOM причем сохраняют
+    записи предков
+9) Определяются вспомогательные функции для облегчения фильтрации
+    компонентов по полям. 
+10?) Дополнительно компонент принимает (Signal a -> b -> a) - сигнальную
+    функцию, зависящую от других компонентов, которая накладывается
+    state signal. 
+-}
+

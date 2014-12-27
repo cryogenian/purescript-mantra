@@ -16,6 +16,7 @@
     "purescript-dom": "~0.1.1",
     "purescript-reactive": "*",
     "purescript-signal": "~2.1.0",
-    "purescript-maps": "~0.1.5"
+    "purescript-maps": "~0.1.5",
+    "purescript-jquery": "~0.2.3"
   }
 }
