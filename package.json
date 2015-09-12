@@ -1,41 +1,12 @@
 {
   "name": "purescript-mantra",
-  "version": "0.0.0",
-  "description": "html svg dsl with rvar and signal ",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha js/tests/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@bitbucket.org:cryogenian/purescript-mantra.git"
-  },
-  "keywords": [
-    "purescript",
-    "dsl",
-    "html",
-    "dsl",
-    "mantra",
-    "reactive",
-    "ui"
-  ],
   "author": "Maxim Zimaliev",
   "license": "MIT",
-  "devDependencies": {
-    "browserify": "^7.0.3",
-    "chai": "^1.10.0",
-    "gulp": "^3.8.10",
-    "gulp-browserify": "^0.5.0",
-    "gulp-purescript": "^0.1.2",
-    "gulp-rename": "^1.2.0",
-    "gulp-util": "^3.0.1",
-    "lodash": "^2.4.1",
-    "mocha": "^2.0.1",
-    "run-sequence": "^1.0.2",
-    "sinon": "^1.12.2",
-    "sinon-chai": "^2.6.0",
-    "underscore.string": "^2.4.0",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.2.1"
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-purescript": "^0.7.0",
+    "purescript": "^0.7.4",
+    "rimraf": "^2.4.3",
+    "webpack-stream": "^2.1.0"
   }
 }

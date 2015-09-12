@@ -1,21 +1,12 @@
 {
   "name": "purescript-mantra",
-  "version": "0.0.0",
   "authors": [
     "Maxim Zimaliev <zimaliev@gmail.com>"
   ],
   "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
-    "purescript-dom": "~0.1.1",
-    "purescript-reactive": "*",
-    "purescript-signal": "~2.1.0",
-    "purescript-maps": "~0.1.5"
+    "purescript-console": "~0.1.1",
+    "purescript-eff": "~0.1.1",
+    "purescript-prelude": "~0.1.2"
   }
 }
