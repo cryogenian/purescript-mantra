@@ -1,0 +1,9 @@
+/node_modules/
+/bower_components/
+/tmp/
+/dist/
+/output/
+/test/node_modules
+public/js/*.js
+.psci_modules
+.psci
