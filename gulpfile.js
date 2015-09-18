@@ -1,7 +1,7 @@
 "use strict";
 
 var gulp = require("gulp"),
-    purescript = require("purescript"),
+    purescript = require("gulp-purescript"),
     webpack = require("webpack-stream"),
     rimraf = require("rimraf");
 

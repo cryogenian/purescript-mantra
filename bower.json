@@ -5,8 +5,18 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "purescript-aff": "~0.12.0",
     "purescript-console": "~0.1.1",
+    "purescript-dom": "~0.2.6",
     "purescript-eff": "~0.1.1",
-    "purescript-prelude": "~0.1.2"
+    "purescript-exists": "~0.2.0",
+    "purescript-freet": "~0.2.0",
+    "purescript-prelude": "~0.1.2",
+    "purescript-refs": "~0.2.0",
+    "purescript-transformers": "~0.8.1",
+    "purescript-tuples": "~0.4.0"
+  },
+  "resolutions": {
+    "purescript-transformers": "~0.8.1"
   }
 }
